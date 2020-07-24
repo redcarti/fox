@@ -112,7 +112,7 @@ class FoxDispatcher extends EventEmitter {
 }
 
 class FoxCommand {
-  constructor ({ base, info, emoji, usage, off, execute }) {
+  constructor ({ base, info, emoji, usage, off, execute, parse }) {
     if (!base || !execute) throw new FoxError('No base or execute()')
 
     this.base = base
@@ -121,6 +121,7 @@ class FoxCommand {
     this.usage = usage
     this.off = off
     this.execute = execute
+    this.parse = parse
   }
 
   static isOld (cmd) {
