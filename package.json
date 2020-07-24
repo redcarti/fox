@@ -1,6 +1,6 @@
 {
-  "name": "fox",
-  "version": "0.1.2-beta.2",
+  "name": "modularium.fox",
+  "version": "0.1.2-beta.3",
   "description": "",
   "main": "index.js",
   "scripts": {
