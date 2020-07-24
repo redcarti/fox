@@ -1,0 +1,21 @@
+{
+  "name": "fox",
+  "version": "0.1.2-beta.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test/",
+    "fix": "standard --fix src/**/*.js",
+    "lint": "standard src/**/*.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
