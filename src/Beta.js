@@ -40,7 +40,7 @@ class FoxParser {
                 let argVal = args[i]
                 val.type.forEach((type, ti) => {
                     let res = this.use(type, argVal)
-                    if (!res) { 
+                    if (!res && val.isNeeded) { 
                         throw new ParserError(argVal, i, type)
                     }
                 })
