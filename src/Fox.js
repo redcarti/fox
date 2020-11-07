@@ -54,8 +54,8 @@ class FoxDispatcher extends EventEmitter {
    */
   async find (command) {
     const cmd = await this._commands.find(cmd => {
-      if (cmd.aliases) return cmd.base === command || cmd.aliases.find(o => o === command)
-      else return cmd.base === command
+      if (cmd.aliases) return cmd.base === command || cmd.aliases.find(o => o === command) || cmd.aliases.includes(command)
+      return cmd.base === command
     })
 
     return cmd
