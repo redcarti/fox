@@ -31,7 +31,7 @@ class FoxDispatcher extends EventEmitter {
    */
   async add (cmd) {
     const command = new FoxCommand(cmd)
-    if (FoxCommand.isOld(cmd)) throw new FoxError(command.base.xb16 + ' is old-typed command. Please, rename [name, description, args] -> [base, info, usage]\nOr, you could use FoxCommand.rebase()')
+    if (FoxCommand.isOld(cmd)) throw new FoxError(command.base?.xb16 + ' is old-typed command. Please, rename [name, description, args] -> [base, info, usage]\nOr, you could use FoxCommand.rebase()')
     await this._commands.set(command.base, command)
   }
 
@@ -54,7 +54,7 @@ class FoxDispatcher extends EventEmitter {
    */
   async find (command) {
     const cmd = await this._commands.find(cmd => {
-      if (cmd.aliases) return cmd.base === command || cmd.aliases.find(o => o === command) || cmd.aliases.includes(command)
+      if (cmd.aliases) return cmd.base === command || cmd.aliases.includes(command)
       return cmd.base === command
     })
 
