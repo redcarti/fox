@@ -1,7 +1,7 @@
 {
   "name": "modularium.fox",
-  "version": "0.1.2-beta.5",
-  "description": "",
+  "version": "0.1.2-beta.6",
+  "description": "A command parser library used in modularium",
   "main": "index.js",
   "scripts": {
     "test": "jest test/ --verbose --runInBand",
