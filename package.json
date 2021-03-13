@@ -1,6 +1,6 @@
 {
   "name": "modularium.fox",
-  "version": "0.1.2-beta.4",
+  "version": "0.1.2-beta.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,21 @@
     "fix": "standard --fix src/**/*.js",
     "lint": "standard src/**/*.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "modularium",
+    "module",
+    "dispatcher"
+  ],
+  "author": {
+    "name": "redcarti",
+    "url": "https://github.com/redcarti"
+  },
+  "homepage": "https://github.com/redcarti/fox",
+  "bugs": "https://github.com/redcarti/fox/issues",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^26.1.0",
     "standard": "^16.0.3"
