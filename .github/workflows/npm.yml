@@ -1,0 +1,28 @@
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Is needed to publish?
+        run: |
+          # get that commit 
+          readonly local commit=$(git log --oneline --format=%B -n 1 HEAD | head -n 1)
+          if [[ $commit == !publish* ]]; then
+            echo "ok"
+          else
+            echo "not publishing, close"
+            exit 78
+          fi
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
