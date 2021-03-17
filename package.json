@@ -1,5 +1,5 @@
 {
-  "name": "modularium.fox",
+  "name": "@modularium/fox",
   "version": "0.1.2-beta.6",
   "description": "A command parser library used in modularium",
   "main": "index.js",
@@ -17,11 +17,11 @@
     "dispatcher"
   ],
   "author": {
-    "name": "redcarti",
-    "url": "https://github.com/redcarti"
+    "name": "modularium",
+    "url": "https://github.com/modularium"
   },
-  "homepage": "https://github.com/redcarti/fox",
-  "bugs": "https://github.com/redcarti/fox/issues",
+  "homepage": "https://github.com/modularium/fox",
+  "bugs": "https://github.com/modularium/fox/issues",
   "license": "MIT",
   "devDependencies": {
     "jest": "^26.1.0",
@@ -32,6 +32,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/redcarti/fox.git"
+    "url": "git://github.com/modularium/fox.git"
   }
 }
