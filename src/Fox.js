@@ -46,13 +46,11 @@ class FoxDispatcher extends EventEmitter {
       throw new FoxError('Command executor is not a function!')
     }
 
-    const command = new FoxCommand({
+    await this.add({
       base: commandName,
-      description: commandDesciption,
+      info: commandDesciption,
       execute: commandExecutor
-    })
-
-    await this._commands.set(command.base, command)
+    }) 
   }
 
   /**
