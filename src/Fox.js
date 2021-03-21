@@ -116,7 +116,9 @@ class FoxDispatcher extends EventEmitter {
 
     if (cmd) {
       if (!cmd.off) { 
-        return await cmd.execute(msg, args)
+        await cmd.execute(msg, args)
+        
+        return args
       } else { 
         throw new FoxError({
           code: 'off',
