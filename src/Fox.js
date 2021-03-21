@@ -11,12 +11,11 @@ class FoxError extends Error {
 
 class FoxDispatcher extends EventEmitter {
   /**
-   * FoxDispatcher is commands dispatcher
+   * FoxDispatcher is a command dispatcher
    * @extends EventEmitter
    * @class
    * @constructor
    * @public
-   * @version 0.1.2-beta.1
    * @since modularium/0.1.15.2
    */
   constructor () {
@@ -32,6 +31,27 @@ class FoxDispatcher extends EventEmitter {
   async add (cmd) {
     const command = new FoxCommand(cmd)
     if (FoxCommand.isOld(cmd)) throw new FoxError((command.base.xb16 ? command.base.xb16 : command.base) + ' is old-typed command. Please, rename [name, description, args] -> [base, info, usage]\nOr, you could use FoxCommand.rebase()')
+    await this._commands.set(command.base, command)
+  }
+
+  /**
+   * Add a simple command to dispatcher
+   * @param {string} commandName Command name
+   * @param {string} commandDesciption Command description
+   * @param {function} commandExecutor Command executor
+   * @public
+   */
+   async addSimple (commandName, commandDesciption, commandExecutor) {
+    if (!(typeof commandExecutor === 'function')) {
+      throw new FoxError('Command executor is not a function!')
+    }
+
+    const command = new FoxCommand({
+      base: commandName,
+      description: commandDesciption,
+      execute: commandExecutor
+    })
+
     await this._commands.set(command.base, command)
   }
 
@@ -54,8 +74,29 @@ class FoxDispatcher extends EventEmitter {
    */
   async find (command) {
     const cmd = await this._commands.find(cmd => {
-      if (cmd.aliases) return cmd.base === command || cmd.aliases.includes(command)
+      if (cmd.aliases) {
+        return cmd.base === command || cmd.aliases.includes(command)
+      }
+
       return cmd.base === command
+    })
+
+    return cmd
+  }
+
+  /**
+   * Find a command using it's base in lower case
+   * @param {string} command Command base
+   * @returns {FoxCommand} Command
+   * @public
+   */
+   async findLowerCase (command) {
+    const cmd = await this._commands.find(cmd => {
+      if (cmd.aliases) {
+        return cmd.base.toLowerCase() === command.toLowerCase() || cmd.aliases.map(v => v.toLowerCase()).includes(command.toLowerCase())
+      }
+      
+      return cmd.base.toLowerCase() === command.toLowerCase()
     })
 
     return cmd
@@ -69,10 +110,29 @@ class FoxDispatcher extends EventEmitter {
    * @public
    */
   async use (msg, command, args) {
-    if (command === '') return
+    if (Boolean(command) === false) return
+
     const cmd = await this.find(command)
-    if (cmd) if (!cmd.off) { await cmd.execute(msg, args); await this.emit('use', msg, command, args) } else await this.emit('cmd/off', msg, command)
-    else await this.emit('cmd/404', msg, command)
+
+    if (cmd) {
+      if (!cmd.off) { 
+        return await cmd.execute(msg, args)
+      } else { 
+        throw new FoxError({
+          code: 'off',
+          command,
+          msg,
+          args
+        })
+      }
+    } else {
+      throw new FoxError({
+        code: '404',
+        command,
+        msg,
+        args
+      })
+    }
   }
 
   /**
@@ -83,7 +143,7 @@ class FoxDispatcher extends EventEmitter {
    */
   async parseuse (msg, commandToParse) {
     const parsed = await this.parse(commandToParse)
-    await this.use(msg, ...parsed)
+    return await this.use(msg, ...parsed)
   }
 
   /**
