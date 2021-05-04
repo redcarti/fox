@@ -1,4 +1,4 @@
-const { Collection, Message } = require('discord.js')
+const { Collection } = require('@discordjs/collection')
 const { EventEmitter } = require('events')
 
 class FoxError extends Error {

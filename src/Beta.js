@@ -1,4 +1,4 @@
-const { Collection } = require('discord.js')
+const { Collection } = require('@discordjs/collection')
 const { FoxError, FoxDispatcher } = require('./Fox')
 
 class ParserError extends Error {
