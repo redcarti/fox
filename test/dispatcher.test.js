@@ -32,6 +32,20 @@ test('run unknown command', async () => {
 
     fd.parseuse(messageObject, unknownCommand)
     .catch(err => {
+        console.log(err.message)
+        if (err.name === 'FoxError') {
+            expect(err.message.command).toBe(unknownCommand)
+            expect(err.message.code).toBe('404')
+        }
+    })
+});
+
+test('run \'\' command', async () => {
+    let unknownCommand = ''
+
+    fd.parseuse(messageObject, unknownCommand)
+    .catch(err => {
+        console.log(err.message)
         if (err.name === 'FoxError') {
             expect(err.message.command).toBe(unknownCommand)
             expect(err.message.code).toBe('404')
@@ -46,6 +60,7 @@ test('run turned off command', async () => {
     
     fd.parseuse(messageObject, offCommand)
     .catch(err => {
+        console.log(err.message)
         if (err.name === 'FoxError') {
             expect(err.message.command).toBe(offCommand)
             expect(err.message.code).toBe('off')

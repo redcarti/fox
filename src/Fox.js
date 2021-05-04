@@ -108,8 +108,6 @@ class FoxDispatcher extends EventEmitter {
    * @public
    */
   async use (msg, command, args) {
-    if (Boolean(command) === false) return
-
     const cmd = await this.find(command)
 
     if (cmd) {
