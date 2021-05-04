@@ -102,17 +102,17 @@ class FoxDispatcher extends EventEmitter {
 
   /**
    * Use a command
-   * @param {Message} msg Message
    * @param {string} command Command base
    * @param {Array} args Command's arguments
+   * @param {Message} msg Message
    * @public
    */
-  async use (msg, command, args) {
+  async use (command, args, msg) {
     const cmd = await this.find(command)
 
     if (cmd) {
       if (!cmd.off) { 
-        await cmd.execute(msg, args)
+        await cmd.execute(args, msg)
         
         return args
       } else { 
@@ -135,13 +135,13 @@ class FoxDispatcher extends EventEmitter {
 
   /**
    * Parse & use a command
-   * @param {Message} msg Message
    * @param {string} commandToParse Command to parse
+   * @param {Message} msg Message
    * @public
    */
-  async parseuse (msg, commandToParse) {
+  async parseuse (commandToParse, msg) {
     const parsed = await this.parse(commandToParse)
-    return await this.use(msg, ...parsed)
+    return await this.use(...parsed, msg)
   }
 
   /**
